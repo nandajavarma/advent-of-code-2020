@@ -6,6 +6,7 @@
   [filename]
     (line-seq (io/reader filename)))
 
+; --------------- Day 1 ------------------
 (defn day-1-1
   [input]
   (set (for [val input
@@ -21,6 +22,16 @@
              :when (= 2020 (+ val other-val third-val))]
          (* val other-val third-val))))
 
+(defn solve-day-1-1
+  [input-file]
+  (day-1-1 (map #(Integer/parseInt %) (get_file_content input-file))))
+
+
+(defn solve-day-1-2
+  [input-file]
+  (day-1-2 (map #(Integer/parseInt %) (get_file_content input-file))))
+
+; --------------- Day 2 ------------------
 (defn extract-policy-params
   [val]
   (zipmap [:min :max :char :string]
@@ -57,15 +68,6 @@
   [input]
   (count (remove true? (map #(is-password-valid-policy-2? %) input))))
 
-(defn solve-day-1-1
-  [input-file]
-  (day-1-1 (map #(Integer/parseInt %) (get_file_content input-file))))
-
-
-(defn solve-day-1-2
-  [input-file]
-  (day-1-2 (map #(Integer/parseInt %) (get_file_content input-file))))
-
 (defn solve-day-2-1
   [input-file]
   (day-2-1 (get_file_content input-file)))
@@ -73,6 +75,8 @@
 (defn solve-day-2-2
   [input-file]
   (day-2-2 (get_file_content input-file)))
+
+; --------------- Entrypoint ------------------
 
 (defn -main [arg]
   ;; (println (solve-day-1-1 arg))
