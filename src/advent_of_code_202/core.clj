@@ -76,11 +76,56 @@
   [input-file]
   (day-2-2 (get_file_content input-file)))
 
+; --------------- Day 3 ------------------
+(defn count-trees
+  [res]
+  (count (filter #{(first "#")} res))
+)
+
+(defn get-nth-in-line
+  [input n right down]
+  (if (<= (* n down) (count input))
+  (let [line (nth input (* n down))]
+    (get line (rem (* n right) (count line)))))
+)
+
+(defn get-total-trees-in-path
+  [input right down]
+  (loop [n 1 res []]
+    (if (>= n (count input))
+      (count-trees res)
+      (recur (inc n) (conj res (get-nth-in-line input n right down)))
+    )
+  ))
+
+(defn day-3-1
+  [input]
+  (get-total-trees-in-path input 3 1)
+  )
+
+(defn day-3-2
+  [input]
+  (* (get-total-trees-in-path input 1 1)
+  (get-total-trees-in-path input 3 1)
+  (get-total-trees-in-path input 5 1)
+  (get-total-trees-in-path input 7 1)
+  (get-total-trees-in-path input 1 2)
+  ))
+
+(defn solve-day-3-1
+  [input-file]
+  (day-3-1 (apply list (get_file_content input-file))))
+
+(defn solve-day-3-2
+  [input-file]
+  (day-3-2  (apply list (get_file_content input-file))))
 ; --------------- Entrypoint ------------------
 
 (defn -main [arg]
   ;; (println (solve-day-1-1 arg))
   ;; (println (solve-day-1-2 arg))
   ;; (println (solve-day-2-1 arg))
-  (println (solve-day-2-2 arg))
+  ;; (println (solve-day-2-2 arg))
+  ;; (println (solve-day-3-1 arg))
+  (println (solve-day-3-2 arg))
   )
